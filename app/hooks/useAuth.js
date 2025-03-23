@@ -64,6 +64,7 @@ export const useAuth = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -72,7 +73,6 @@ export const useAuth = () => {
       if (data.success) {
         setIsAuthenticated(true);
         setUser(data.user);
-        document.cookie = `token=${data.token}; path=/;`;
       }
 
       return data;
@@ -88,6 +88,7 @@ export const useAuth = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ token }),
       });
 
@@ -96,7 +97,6 @@ export const useAuth = () => {
       if (data.success) {
         setIsAuthenticated(true);
         setUser(data.user);
-        document.cookie = `token=${data.token}; path=/;`;
       }
 
       return data;
