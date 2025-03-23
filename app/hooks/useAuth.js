@@ -16,9 +16,13 @@ export const useAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${apiURL}/api/auth/me`, {
           method: "GET",
-          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token ? `Bearer ${token}` : "",
+          },
         });
 
         if (response.ok) {
@@ -64,7 +68,6 @@ export const useAuth = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -73,6 +76,7 @@ export const useAuth = () => {
       if (data.success) {
         setIsAuthenticated(true);
         setUser(data.user);
+        localStorage.setItem("token", data.token);
       }
 
       return data;
@@ -88,7 +92,6 @@ export const useAuth = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({ token }),
       });
 
@@ -97,6 +100,7 @@ export const useAuth = () => {
       if (data.success) {
         setIsAuthenticated(true);
         setUser(data.user);
+        localStorage.setItem("token", data.token);
       }
 
       return data;
