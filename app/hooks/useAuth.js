@@ -111,12 +111,14 @@ export const useAuth = () => {
 
   const logout = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       const response = await fetch(`${apiURL}/api/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
         },
-        credentials: "include",
       });
 
       const data = await response.json();
@@ -124,8 +126,7 @@ export const useAuth = () => {
       if (data.success) {
         setIsAuthenticated(false);
         setUser(null);
-        document.cookie =
-          "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        localStorage.removeItem("token");
       }
 
       return data;
