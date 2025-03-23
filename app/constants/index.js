@@ -1,1 +1,4 @@
-export const apiURL = "http://localhost:8000";
+import dotenv from "dotenv";
+dotenv.config();
+
+export const apiURL = process.env.SERVER_URL;
