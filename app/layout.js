@@ -3,9 +3,6 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
